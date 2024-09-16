@@ -1,22 +1,27 @@
 import { useContext, useRef } from "react";
-import {PostList} from "../store/post-list-store";
+import { PostList } from "../store/post-list-store";
 
 const CreatePost = () => {
-const {addPost} = useContext(PostList);
+  const { addPost } = useContext(PostList);
   const userId = useRef()
   const postTitle = useRef()
   const postBody = useRef()
   const reactions = useRef()
   const tags = useRef()
-  const handleSubmit =(event)=>{
-event.preventDefault();
-addPost({
-  userId: userId.current.value,
-  title: postTitle.current.value,
-  body: postBody.current.value,
-  reactions: reactions.current.value,
-  tags: tags.current.value.split(',')
-})
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addPost(
+      userId.current.value,
+      postTitle.current.value,
+      postBody.current.value,
+      reactions.current.value,
+      tags.current.value.split(',')
+    )
+    userId.current.value = ""
+    postTitle.current.value = ""
+    postBody.current.value = ""
+    reactions.current.value = ""
+    tags.current.value = ""
   }
 
   return (
@@ -31,7 +36,7 @@ addPost({
       </div>
       <div className="mb-3">
         <label htmlFor="body" className="form-label">Post content</label>
-        <textarea rows={4} type="text" className="form-control" ref={postBody}  id="title" placeholder="Tell us more about it" />
+        <textarea rows={4} type="text" className="form-control" ref={postBody} id="title" placeholder="Tell us more about it" />
       </div>
       <div className="mb-3">
         <label htmlFor="hashtags" className="form-label">Hashtags</label>
